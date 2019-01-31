@@ -1,0 +1,2 @@
+from .notifier_telegram_menu import NotifierTelegram
+from .notifier_telegram import NotifierTelegram as NotifierTelegramSimple
