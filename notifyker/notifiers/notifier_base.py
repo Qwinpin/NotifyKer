@@ -7,10 +7,10 @@ class NotifierBase:
         """
         Initialize mandatory variables of notifier
         """
-        self.cache_message_id = None
-        self.flags_batch = []
-        self.flags_epoch = []
-        self._status = None
+        self.cache_message_id = None  # use to edit messages
+        self.flags_batch = []  # use to implement operations after each batch
+        self.flags_epoch = []  # use to implement operations after each epoch
+        self._status = None  # store status
         self.verbose_value = 1
 
     def status(self):

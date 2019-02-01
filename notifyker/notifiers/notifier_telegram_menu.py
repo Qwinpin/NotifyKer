@@ -19,8 +19,7 @@ class NotifierTelegramMenu(NotifierTelegram):
             [InlineKeyboardButton("Verbose", callback_data='verbose')],
             [InlineKeyboardButton("Pause", callback_data='pause')],
             [InlineKeyboardButton("Continue", callback_data='Continue')],
-            [InlineKeyboardButton("Interrupt", callback_data='interrupt')],
-            [InlineKeyboardButton("Cancel", callback_data='cancel')]]
+            [InlineKeyboardButton("Interrupt", callback_data='interrupt')]]
 
         self.default_reply_markup = ReplyKeyboardMarkup(menu_keyboard, one_time_keyboard=False)
 
