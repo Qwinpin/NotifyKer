@@ -4,7 +4,7 @@
 
 ##### Simple to use:
 
-Set your TOKEN and PROXY settings in **notifyker/config_default.py** and rename to **notifyker/config.py**
+![bot](bot.gif)
 
 ```python
 from notifyker import NotifierTelegramMenu, CallbackSimple
