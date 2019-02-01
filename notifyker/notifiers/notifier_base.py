@@ -11,6 +11,7 @@ class NotifierBase:
         self.flags_batch = []
         self.flags_epoch = []
         self._status = None
+        self.verbose_value = 1
 
     def status(self):
         """

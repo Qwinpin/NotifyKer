@@ -1,6 +1,6 @@
 from telegram.ext import CommandHandler, Updater
 
-from ..config import TOKEN, PROXY
+from ..config import PROXY_DEF, TOKEN_DEF
 from .notifier_base import NotifierBase
 
 
@@ -8,24 +8,22 @@ class NotifierTelegram(NotifierBase):
     """
     Telegram notifier bot
     """
-    def __init__(self):
+    def __init__(self, TOKEN=None, PROXY=None, chat_id=None):
         """
         Create handlers and chat id for message edits
         """
         super().__init__()
         self.active = False
-        self.cache_message_id = None
-        self.flags_batch = []
-        self.flags_epoch = []
-        self._status = None
-        self.verbose_value = 1
-        self.chat_id = None
+
+        self.chat_id = chat_id
+        self.__TOKEN = TOKEN or TOKEN_DEF
+        self.__PROXY = PROXY or PROXY_DEF
 
         self._connect()
 
     def _connect(self):
         if not self.active:
-            self.updater = Updater(TOKEN, request_kwargs=PROXY)
+            self.updater = Updater(self.__TOKEN, request_kwargs=self.__PROXY)
     
             self.handlers()
             self.updater.start_polling()
@@ -36,12 +34,16 @@ class NotifierTelegram(NotifierBase):
         """
         Telegram specific method of message sending
         """
-        if message_id is not None:
-            ack = self.updater.bot.edit_message_text(chat_id=self.chat_id, text=message, message_id=message_id)
-        else:
-            ack = self.updater.bot.send_message(chat_id=self.chat_id, text=message, reply_markup=reply_markup)
+        try:
+            if message_id is not None:
+                ack = self.updater.bot.edit_message_text(chat_id=self.chat_id, text=message, message_id=message_id)
+            else:
+                ack = self.updater.bot.send_message(chat_id=self.chat_id, text=message, reply_markup=reply_markup)
+        except:
+            print('Chat is not active')
 
-        return ack
+        else:
+            return ack
 
     def handlers(self):
         """
@@ -59,25 +61,32 @@ class NotifierTelegram(NotifierBase):
         """
         Method of start message processing required to obtain chat_id
         """
-        self.chat_id = update.message.chat_id
+        # set chat_id to send messages
+        if self.chat_id is None:
+            self.chat_id = update.message.chat_id
+
         update.message.reply_text('Hello, my friend')
 
     def _help(self, bot, update):
         """
         Method of help command processing
         """
+        if self.chat_id is None:
+            self.chat_id = update.message.chat_id
+
         message = 'Welcome! Enter /start to add your chat_id before you start training\n\
-                        /help - Show available commands\n\
-                        /status - Show current training status - epoch, metrics\n\
-                        /pause - Suspend training process (model still in a memory)\n\
-                        /continue - Continue training process\n\
-                        /interrupt - Interrupt training process ATTENTION: You will not be able to continue by this bot\n'
+/help - Show available commands\n\
+/status - Show current training status - epoch, metrics\n\
+/pause - Suspend training process (model still in a memory)\n\
+/continue - Continue training process\n\
+/interrupt - Interrupt training process ATTENTION: You will not be able to continue by this bot\n'
         self.message(message)
 
     def pause(self, bot, update):
         """
         Method of pause command processing. Suspend the training process
         """
+        # add 'p' flag to suspend the training in the end of the current batch
         self.flags_batch.append('p')
         self.message('Training suspended. Use /stop or /cont now')
 
@@ -89,6 +98,12 @@ class NotifierTelegram(NotifierBase):
         self.message('Training continues')
 
     def verbose(self, bot, update):
+        """
+        Get current verbose level
+        0 - only the last message about the end of training
+        1 - status of each epoch end
+        2 - update of each batch result
+        """
         self.message('Current verbose: {}'.format(self.verbose_value))
 
     def interrupt(self, bot, update):
