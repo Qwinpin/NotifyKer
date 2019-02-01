@@ -6,19 +6,6 @@
 
 ![bot](bot.gif)
 
-```python
-from notifyker import NotifierTelegramMenu, CallbackSimple
-
-
-nfk = NotifierTelegramMenu()
-callback = CallbackSimple(notifier=nfk)
-
-model.fit(...
-	callbacks=[callback])
-```
-
-**OR**
-
 Set TOKEN and PROXY while creating the instance of NotifierTelegramMenu
 
 ```python
