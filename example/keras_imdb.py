@@ -40,8 +40,8 @@ model.compile(loss='binary_crossentropy',
               metrics=['accuracy'])
 
 # Set your own credits
-TOKEN = 'your:token'
-PROXY = None
+TOKEN = '732354002:AAE_vHVNieg1e16fZDG79OKF8fF4cNq_rFE'
+PROXY = {'proxy_url': 'socks5h://217.182.216.119:5001', 'urllib3_proxy_kwargs': {'username': 'wop', 'password': 'Tm24&10aQSc'}}
 
 # create telegram notifier instance
 ntf = notifyker.NotifierTelegramMenu(TOKEN=TOKEN, PROXY=PROXY)

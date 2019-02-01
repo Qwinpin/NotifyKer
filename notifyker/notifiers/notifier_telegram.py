@@ -88,14 +88,13 @@ class NotifierTelegram(NotifierBase):
         """
         # add 'p' flag to suspend the training in the end of the current batch
         self.flags_batch.append('p')
-        self.message('Training suspended. Use /interrupt or /cont now')
 
     def cont(self, bot, update):
         """
         Method of continue command processing. Continue the training process
         """
         self.flags_batch.append('c')
-        self.message('Training continues')
+        self.message('Training continue in less than 10s')
 
     def verbose(self, bot, update):
         """
@@ -111,7 +110,6 @@ class NotifierTelegram(NotifierBase):
         Method of stop (training) command processing
         """
         self.flags_batch.append('s')
-        self.message('')
 
         self.message('Training interrupting...')
 

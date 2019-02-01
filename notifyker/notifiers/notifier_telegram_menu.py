@@ -123,7 +123,7 @@ Interrupt - Interrupt training process ATTENTION: You will not be able to contin
             self.verbose_value = int(option)
 
         self.message('Verbose: {}'.format(self.verbose_value), reply_markup=self.default_reply_markup)
-
+        self.cache_message_id = None
         return 0
 
     def interrupt_menu(self, bot, update):
