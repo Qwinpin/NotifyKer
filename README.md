@@ -18,6 +18,12 @@
 
 ------
 
+### How to install
+
+```bash
+pip install notifyker
+```
+
 ### How to use
 
 Set TOKEN and PROXY while creating the instance of NotifierTelegramMenu or NotifierTelegram

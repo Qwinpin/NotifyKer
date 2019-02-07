@@ -1,7 +1,6 @@
 from telegram.ext import CommandHandler, Updater
 
 from .notifier_base import NotifierBase
-from ..config import PROXY_DEF, TOKEN_DEF
 
 
 class NotifierTelegram(NotifierBase):
@@ -16,8 +15,8 @@ class NotifierTelegram(NotifierBase):
         self.active = False
 
         self.chat_id = chat_id
-        self.__TOKEN = TOKEN or TOKEN_DEF
-        self.__PROXY = PROXY or PROXY_DEF
+        self.__TOKEN = TOKEN
+        self.__PROXY = PROXY
 
         self._connect()
 

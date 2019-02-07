@@ -18,3 +18,11 @@ notifyker/chainer/__pycache__/
 notifyker/keras/__pycache__/
 
 wop_chainer\.py
+
+notifyker\.egg-info/
+
+build/lib/notifyker/
+
+dist/
+
+README_pypi\.md

@@ -2,7 +2,6 @@ from telegram import InlineKeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRem
 from telegram.ext import CommandHandler, ConversationHandler, RegexHandler, Updater
 
 from .notifier_telegram import NotifierTelegram
-from ..config import PROXY_DEF, TOKEN_DEF
 
 
 class NotifierTelegramMenu(NotifierTelegram):
@@ -13,7 +12,7 @@ class NotifierTelegramMenu(NotifierTelegram):
         """
         Create handlers and chat id for message edits
         """
-        super().__init__()
+        super().__init__(TOKEN, PROXY)
         menu_keyboard = [
             [InlineKeyboardButton("Status", callback_data='status')],
             [InlineKeyboardButton("Verbose", callback_data='verbose')],
