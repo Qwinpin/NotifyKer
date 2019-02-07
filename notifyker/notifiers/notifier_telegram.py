@@ -1,7 +1,7 @@
 from telegram.ext import CommandHandler, Updater
 
-from ..config import PROXY_DEF, TOKEN_DEF
 from .notifier_base import NotifierBase
+from ..config import PROXY_DEF, TOKEN_DEF
 
 
 class NotifierTelegram(NotifierBase):
@@ -24,7 +24,7 @@ class NotifierTelegram(NotifierBase):
     def _connect(self):
         if not self.active:
             self.updater = Updater(self.__TOKEN, request_kwargs=self.__PROXY)
-    
+
             self.handlers()
             self.updater.start_polling()
 
@@ -39,8 +39,9 @@ class NotifierTelegram(NotifierBase):
                 ack = self.updater.bot.edit_message_text(chat_id=self.chat_id, text=message, message_id=message_id)
             else:
                 ack = self.updater.bot.send_message(chat_id=self.chat_id, text=message, reply_markup=reply_markup)
-        except:
-            print('Chat is not active')
+        except Exception as e:
+            print('Chat is not active. {}'.format(e))
+            return None
 
         else:
             return ack

@@ -6,3 +6,15 @@ notifyker/callbackNK/__pycache__/
 notifyker/notifiers/__pycache__/
 
 notifyker/config\.py
+
+mnist_result/model_epoch-1
+
+\.vscode/
+
+mnist_result/
+
+notifyker/chainer/__pycache__/
+
+notifyker/keras/__pycache__/
+
+wop_chainer\.py

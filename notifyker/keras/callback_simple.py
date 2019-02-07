@@ -121,7 +121,7 @@ class CallbackSimple(CallbackBase):
             self.notifier.flags_batch.remove('p')
             self.cache_message_id = None
 
-            self.notifier.message('Training suspended. Use /interrupt or /cont now')
+            self.notifier.message('Training suspended. Use /interrupt or /continue now')
             while 'c' not in self.notifier.flags_batch and 's' not in self.notifier.flags_batch:
                 time.sleep(10)
 

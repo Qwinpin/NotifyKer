@@ -1,8 +1,8 @@
+from telegram import InlineKeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import CommandHandler, ConversationHandler, RegexHandler, Updater
-from telegram import ReplyKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardRemove
 
-from ..config import PROXY_DEF, TOKEN_DEF
 from .notifier_telegram import NotifierTelegram
+from ..config import PROXY_DEF, TOKEN_DEF
 
 
 class NotifierTelegramMenu(NotifierTelegram):
@@ -103,6 +103,9 @@ Interrupt - Interrupt training process ATTENTION: You will not be able to contin
             return ConversationHandler.END
 
     def verbose_menu(self, bot, update):
+        """
+        Send verbose menu and return the callback for conversation
+        """
         verbose_list = [i for i in range(3) if i != self.verbose_value]
         verbose_keyboard = [
             [InlineKeyboardButton("Unchanged", callback_data='none')]
@@ -118,6 +121,9 @@ Interrupt - Interrupt training process ATTENTION: You will not be able to contin
         return 1
 
     def verbose_handler(self, bot, update):
+        """
+        Handle the user choice of verbose
+        """
         option = update.message.text
         if option != 'Unchanged':
             self.verbose_value = int(option)
@@ -141,6 +147,9 @@ Interrupt - Interrupt training process ATTENTION: You will not be able to contin
         return 2
 
     def interrupt_handler(self, bot, update):
+        """
+        Handle the user choice of interruption
+        """
         option = update.message.text
         if option == 'Yes':
             self.flags_batch.append('s')
@@ -152,5 +161,8 @@ Interrupt - Interrupt training process ATTENTION: You will not be able to contin
         return 0
 
     def _close_connect(self):
-        # self.updater.stop()
+        """
+        Stop bot poolling
+        """
+        self.updater.stop()
         self.active = False

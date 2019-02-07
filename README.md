@@ -1,6 +1,6 @@
 # NotifyKer
 
-*Callback notifier and manager bot for Keras ML library*
+*Notifier and manager bot for ML libraries: Keras and Chainer* 
 
 ### Features:
 
@@ -22,8 +22,33 @@
 
 Set TOKEN and PROXY while creating the instance of NotifierTelegramMenu or NotifierTelegram
 
+#### Chainer
+
 ```python
-from notifyker import NotifierTelegramMenu, CallbackSimple
+from notifyker import NotifierTelegramMenu
+from notifyker.chainer import ExtensionNotifierReport
+
+TOKEN = 'xxxx:yyy'
+PROXY = {
+    'proxy_url': 'socks5h://ip:port', 
+    'urllib3_proxy_kwargs': {'username': 'username', 'password': 'password'}}
+
+# use NotifierTelegram in order to work without keyboard menu
+nfk = NotifierTelegramMenu(TOKEN=TOKEN, PROXY=PROXY)
+chainer_not = ExtensionNotifierReport(notifier=nfk)
+
+...
+trainer.extend(chainer_not)
+trainer.run()
+```
+
+
+
+#### Keras
+
+```python
+from notifyker import NotifierTelegramMenu
+from notifyker.keras import CallbackSimple
 
 TOKEN = 'xxxx:yyy'
 PROXY = {

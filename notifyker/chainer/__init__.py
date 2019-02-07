@@ -1,0 +1,1 @@
+from .extensions_tg_notifier import ExtensionNotifierReport
